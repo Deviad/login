@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES} from "@ang
 import {AuthService, AuthFactory} from "../shared/auth.service";
 import {AuthGuard} from '../shared/auth.guard';
 
+export var loginTypeProperty: string;
 
 @Component({
     template: `
@@ -19,16 +20,18 @@ import {AuthGuard} from '../shared/auth.guard';
 
 @Injectable()
 
+
+
 export class SigninComponent {
 
-    public static loginTypeProperty: string;
+
 
     constructor(private authFactory: AuthFactory) {
     }
 
     onSignin(loginType) {
-        SigninComponent.loginTypeProperty = loginType;
-        window.alert('PIPPO IS ' + SigninComponent.loginTypeProperty);
+        loginTypeProperty = loginType;
+        window.alert('PIPPO IS ' + loginTypeProperty);
         this.authFactory.create(loginType);
     }
 

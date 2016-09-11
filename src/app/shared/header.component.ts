@@ -1,7 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, Optional, Inject } from "@angular/core";
 import { ROUTER_DIRECTIVES } from "@angular/router";
 
-import { AuthService, AuthFactory } from "./auth.service";
+import { AuthService, MyLogin, FacebookLogin, GoogleLogin, AuthFactory } from "./auth.service";
+import {SigninComponent, loginTypeProperty} from '../unprotected/signin.component';
+
 
 @Component({
     selector: 'my-header',
@@ -30,13 +32,26 @@ import { AuthService, AuthFactory } from "./auth.service";
     `
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
+
+    myLogin: MyLogin;
+    facebookLogin: FacebookLogin;
+    googleLogin: GoogleLogin;
+
+  constructor(private authService: AuthService, @Optional() myLogin: MyLogin, @Optional() facebookLogin: FacebookLogin, @Optional() googleLogin: GoogleLogin) {
+      this.myLogin = myLogin;
+      this.facebookLogin = facebookLogin;
+      this.googleLogin = googleLogin;
+
+  }
 
   isAuth() {
-    return this.authService.isAuthenticated();
+    return AuthService.isAuthenticated();
   }
 
   onLogout() {
-    this.authService.logout();
+
+      window.alert(loginTypeProperty);
+
+    this[loginTypeProperty + 'Login'].logout();
   }
 }
