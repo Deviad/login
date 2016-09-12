@@ -9,7 +9,7 @@ import { HeaderComponent } from "./shared/header.component";
 import { SigninComponent } from "./unprotected/signin.component";
 import { SignupComponent } from "./unprotected/signup.component";
 import { ProtectedComponent } from "./protected/protected.component";
-import {CreateTokenService} from './shared/create-token.service';
+import { CreateTokenService, UnixTimeStamp, CreateHash } from './shared/create-token.service';
 import { AuthGuard } from "./shared/auth.guard";
 import { AuthService, AuthFactory, MyLogin, FacebookLogin, GoogleLogin } from "./shared/auth.service";
 import { routing } from "./app.routing";
@@ -28,11 +28,13 @@ import { routing } from "./app.routing";
         AuthGuard,
         AuthService,
         AuthFactory,
-        SigninComponent,
+        {provide: SigninComponent, deps: [AuthFactory]},
         MyLogin,
         FacebookLogin,
         GoogleLogin,
         CreateTokenService,
+        UnixTimeStamp,
+        {provide: CreateHash, deps: [UnixTimeStamp]},
         {provide: AuthHttp,
                 useFactory: (http) => {
                     return new AuthHttp(new AuthConfig({
