@@ -15,7 +15,7 @@ export abstract class AuthService {
 
     abstract logout(): any;
 
-    abstract signinUser(secret?: string, router?: Router): any;
+    abstract signinUser(myType: string, secret?: string): any;
 
     static isAuthenticated(): boolean {
         return AuthService.loggedIn;
@@ -33,11 +33,11 @@ export class MyLogin extends AuthService {
         AuthService.loggedIn = !!localStorage.getItem('auth_token');
     }
 
-    signinUser(secret: string) {
+    signinUser(myType: string, secret?: string) {
 
         this.headers = new Headers({'Content-Type': 'application/json'});
         this.options = new RequestOptions([{'headers': 'headers'}, {body: ''}]);
-        let tokenHolder = new CreateTokenService(secret);
+        let tokenHolder = new CreateTokenService(myType, secret);
         let now = new UnixTimeStamp();
         // let queryString = 'http://login.myloginonline.com/api/getloggedinuser?timestamp=';
         // let theUrl = queryString + now.unixTimeStamp + '&hash=' + tokenHolder.token.hashed;
@@ -47,7 +47,7 @@ export class MyLogin extends AuthService {
         )
             .map((res: Response) => {
                 if (res.status == 200) {
-                    localStorage.setItem('auth_token', tokenHolder.token.hashed);
+                    localStorage.setItem('auth_token', tokenHolder.myCookie);
                     AuthService.loggedIn = true;
                     this.router.navigate(['protected'], { relativeTo: this.route });
 
@@ -118,11 +118,9 @@ export abstract class AuthFactory {
         myType = myType.toLocaleLowerCase();
 
         let secretKey = '1234abcd';
+        let sendKey = (myType) => {return (myType == 'my') ? secretKey : ''};
 
-        return this[myType + 'Login'].signinUser(
-
-            (myType) => {return (myType == 'my') ? secretKey : ''});
-
+        return this[myType + 'Login'].signinUser(myType, sendKey  );
     }
 
 }

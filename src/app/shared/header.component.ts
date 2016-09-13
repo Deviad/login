@@ -2,7 +2,7 @@ import { Component, Optional, Inject } from "@angular/core";
 import { ROUTER_DIRECTIVES } from "@angular/router";
 
 import { AuthService, MyLogin, FacebookLogin, GoogleLogin, AuthFactory } from "./auth.service";
-import {SigninComponent, loginTypeProperty} from '../unprotected/signin.component';
+import {SigninComponent} from '../unprotected/signin.component';
 
 
 @Component({
@@ -50,8 +50,15 @@ export class HeaderComponent {
 
   onLogout() {
 
-      window.alert(loginTypeProperty);
+    let aCookie = JSON.parse(localStorage.getItem('auth_token'));
 
-    this[loginTypeProperty + 'Login'].logout();
+    window.alert(aCookie);
+    let loginProperty = aCookie.loginP;
+
+    window.alert(loginProperty);
+
+    this[loginProperty + 'Login'].logout();
+
+
   }
 }

@@ -35,10 +35,16 @@ export class CreateHash {
 
 @Injectable()
 export class CreateTokenService {
-  token: any;
-  constructor(secret: string) {
+  myCookie: any;
+  constructor(myType: string, secret: string) {
   let timestamp = new UnixTimeStamp();
-  this.token = new CreateHash(timestamp, secret);
+  let myToken = new CreateHash(timestamp, secret);
+  this.myCookie = {
+      'hashed': myToken.hashed,
+      'loginP': myType,
+    };
+  this.myCookie = JSON.stringify(this.myCookie);
   }
+
 }
 
