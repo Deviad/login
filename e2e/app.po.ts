@@ -1,9 +1,11 @@
-export class FirstAppPage {
+import { browser, element, by } from 'protractor';
+
+export class LoginPage {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('first-app-app h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }

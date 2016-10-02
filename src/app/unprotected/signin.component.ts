@@ -1,7 +1,7 @@
-import {Component, Injectable, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+import {Component, Injectable, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {AuthService, AuthFactory} from "../shared/auth.service";
+import {AuthService, AuthFactory} from '../shared/auth.service';
 import {AuthGuard} from '../shared/auth.guard';
 
 export var loginTypeProperty: string;

@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
  * @returns String unixTimestamp
  * @var Date timestamp
  */
+@Injectable()
 
 export class UnixTimeStamp {
   timestamp = new Date;
@@ -18,6 +19,7 @@ export class UnixTimeStamp {
  * @param UnixTimeStamp timeStamp
  * @returns String this.hashed
  */
+@Injectable()
 
 export class CreateHash {
   hashed: any;

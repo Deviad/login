@@ -1,7 +1,6 @@
-import { Component, Optional, Inject } from "@angular/core";
-import { ROUTER_DIRECTIVES } from "@angular/router";
+import { Component, Optional, Inject } from '@angular/core';
 
-import { AuthService, MyLogin, FacebookLogin, GoogleLogin, AuthFactory } from "./auth.service";
+import {MyLogin, FacebookLogin, GoogleLogin, AuthFactory, AuthService} from './auth.service';
 import {SigninComponent} from '../unprotected/signin.component';
 
 
@@ -37,7 +36,7 @@ export class HeaderComponent {
     facebookLogin: FacebookLogin;
     googleLogin: GoogleLogin;
 
-  constructor(private authService: AuthService, @Optional() myLogin: MyLogin, @Optional() facebookLogin: FacebookLogin, @Optional() googleLogin: GoogleLogin) {
+  constructor(@Optional() myLogin: MyLogin, @Optional() facebookLogin: FacebookLogin, @Optional() googleLogin: GoogleLogin) {
       this.myLogin = myLogin;
       this.facebookLogin = facebookLogin;
       this.googleLogin = googleLogin;
@@ -61,4 +60,6 @@ export class HeaderComponent {
 
 
   }
+
+
 }
